@@ -95,3 +95,21 @@ function csrf_token(): ?string
 
     return null;
 }
+
+/**
+ * Return config by filename from /config/ flooder
+ * @param string $name
+ * @return array
+ */
+function get_config(string $name): array
+{
+    $nameProtected = str_replace('..', '', $name);
+
+    $path = __DIR__ . '/config/' . $nameProtected . '.php';
+
+    if (!file_exists($path)) {
+        throw new RuntimeException("Cannot find config by name '$name' (path: '$path'");
+    }
+
+    return (include $path);
+}

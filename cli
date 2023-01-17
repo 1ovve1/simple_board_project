@@ -1,0 +1,11 @@
+#!/usr/bin/env php
+<?php declare(strict_types=1);
+
+define('CLI_MOD', true);
+
+require_once 'bootstrap.php';
+
+switch ($argv[1]) {
+    case 'migrate':
+        \Lowel\Workproject\DB\Migrations\UserMigrations::migrateFromConfig();
+}
