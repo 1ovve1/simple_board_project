@@ -5,5 +5,5 @@
 /.phpunit.cache
 /logs/*
 /node_modules
-composer.lock.json
+composer.lock
 
