@@ -8,4 +8,11 @@ class SiteController extends AbstractController
     {
         return self::render('welcome');
     }
+
+    function post()
+    {
+        $this->response->json([
+            'data' => input('data')
+        ]);
+    }
 }

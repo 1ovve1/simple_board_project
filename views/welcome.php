@@ -8,6 +8,10 @@
     <title>Welcome</title>
 </head>
 <body>
-    Welcome
+<form action="http://<?=  url('post-test')->getAbsoluteUrl() ?>" method="post">
+    <?= csrf() ?>
+    <input type="text" name="data">
+    <input type="submit">
+</form>
 </body>
 </html>

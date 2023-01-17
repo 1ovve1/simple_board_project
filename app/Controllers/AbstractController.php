@@ -43,7 +43,7 @@ abstract class AbstractController
         } elseif(file_exists($template_path . '.html')) {
             return $template_path . '.html';
         } else {
-            throw new \RuntimeException("Template with name '$template' not found by path '$template_path");
+            throw new \RuntimeException("Template with name '$template' not found by path '$template_path'");
         }
     }
 
