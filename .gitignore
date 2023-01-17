@@ -1,0 +1,9 @@
+/.vscode
+/.idea
+/vendor
+/laradock
+/.phpunit.cache
+/logs/*
+/node_modules
+composer.lock.json
+
