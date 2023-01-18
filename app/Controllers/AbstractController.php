@@ -20,13 +20,14 @@ abstract class AbstractController
     /**
      * Render given html/php template by given template name
      * @param string $template
+     * @param array<string, mixed> $args
      * @return string
      */
-    static function render(string $template): string
+    static function render(string $template, array $args = []): string
     {
         $template_path = self::resolveTemplatePath($template);
 
-        return self::loadTemplate($template_path);
+        return self::loadTemplate($template_path, $args);
     }
 
     /**
@@ -51,10 +52,12 @@ abstract class AbstractController
      * Load given template in buffer and return it
      *
      * @param string $template_path
+     * @param array<string, mixed> $args
      * @return string
      */
-    private static function loadTemplate(string $template_path): string
+    private static function loadTemplate(string $template_path, array $args = []): string
     {
+        extract($args);
         ob_start();
         include $template_path;
         return ob_get_clean();
