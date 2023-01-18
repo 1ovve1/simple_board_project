@@ -13,5 +13,10 @@
     <input type="text" name="data">
     <input type="submit">
 </form>
+
+<a href="http://<?= url('logout')->getAbsoluteUrl() ?>">logout</a>
+<a href="http://<?= url('login')->getAbsoluteUrl() ?>">login</a>
+
+<pre><?= print_r(auth(), true)?></pre>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Lowel\Workproject\App\Services\Auth;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -94,4 +95,39 @@ function csrf_token(): ?string
     }
 
     return null;
+}
+
+/**
+ * Return config by filename from /config/ flooder
+ * @param string $name
+ * @return array
+ */
+function get_config(string $name): array
+{
+    $nameProtected = str_replace('..', '', $name);
+
+    $path = __DIR__ . '/config/' . $nameProtected . '.php';
+
+    if (!file_exists($path)) {
+        throw new RuntimeException("Cannot find config by name '$name' (path: '$path'");
+    }
+
+    return (include $path);
+}
+
+/**
+ * Return auth service
+ * @return Auth|null
+ */
+function auth(): Auth|null
+{
+    return Auth::$instance;
+}
+
+/**
+ * @return bool
+ */
+function is_auth(): bool
+{
+    return Auth::$instance !== null && Auth::$instance->user !== null;
 }

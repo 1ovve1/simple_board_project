@@ -3,8 +3,12 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/helpers.php';
 
-// Make paths global
+// Register global paths and services
 $_ENV['BASE_PATH'] = __DIR__;
 $_ENV['VIEWS_PATH'] = __DIR__ . '/views/';
 
-require_once __DIR__ . '/routes/routes.php';
+require_once __DIR__ . '/database/database.php';
+
+if (defined('CLI_MOD') === false) {
+    require_once __DIR__ . '/routes/routes.php';
+}
