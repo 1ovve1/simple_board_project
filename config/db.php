@@ -7,4 +7,6 @@ return [
     'DB_PORT' => '3306',
     'DB_USER' => 'default',
     'DB_PASS' => 'secret',
+
+    'LOG_QUERY_RESULTS' => false,
 ];

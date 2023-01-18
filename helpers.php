@@ -30,6 +30,35 @@ function url(?string $name = null, $parameters = null, ?array $getParams = null)
 }
 
 /**
+ * @param string|null $name
+ * @param $parameters
+ * @param array|null $getParams
+ * @return string
+ * @throws \InvalidArgumentException
+ */
+function route(?string $name = null, $parameters = null, ?array $getParams = null): string
+{
+    if (empty($_SERVER['HTTPS'])) {
+        return 'http://' . url($name, $parameters, $getParams)->getAbsoluteUrl();
+    } else {
+        return 'https://' . url($name, $parameters, $getParams)->getAbsoluteUrl();
+    }
+}
+
+/**
+ * @param string $path
+ * @return string
+ */
+function assets(string $path): string
+{
+    if (empty($_SERVER['HTTPS'])) {
+        return 'http://' . url()->getHost() . '/assets/' . $path;
+    } else {
+        return 'https://' . url()->getHost() . '/assets/' . $path;
+    }
+}
+
+/**
  * @return \Pecee\Http\Response
  */
 function response(): Response

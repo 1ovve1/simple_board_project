@@ -49,12 +49,12 @@ class UsersRepository
      * @param string $password_hash
      * @param string $first_name
      * @param string $last_name
-     * @param int|null $phone
+     * @param string|null $phone
      * @return int
      */
     static function addUser(string $username, string $password_hash,
                             string $first_name, string $last_name,
-                            ?int $phone = null): int
+                            string $phone = null): int
     {
         Users::insert(compact('username', 'password_hash', 'first_name', 'last_name', 'phone'))->save();
 

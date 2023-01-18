@@ -3,9 +3,10 @@
 namespace Lowel\Workproject\App\Models;
 
 use QueryBox\Migration\MigrateAble;
+use QueryBox\Migration\MigrationParams;
 use QueryBox\QueryBuilder\QueryBuilder;
 
-class Users extends QueryBuilder implements MigrateAble
+class Boards extends QueryBuilder implements MigrateAble
 {
     /**
      * @inheritDoc
@@ -15,12 +16,12 @@ class Users extends QueryBuilder implements MigrateAble
         return [
             'fields' => [
                 'id' => 'BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-                'username' => 'VARCHAR(50) NOT NULL UNIQUE',
-                'first_name' => 'VARCHAR(50) NOT NULL',
-                'last_name' => 'VARCHAR(50) NOT NULL',
-                'phone' => 'VARCHAR(50) NOT NULL',
-                'password_hash' => 'VARCHAR(255) NOT NULL',
+                'title' => 'VARCHAR(255) NOT NULL',
+                'address' => 'VARCHAR(255) NOT NULL',
+                'content' => 'TEXT',
+                'price' => 'BIGINT UNSIGNED NOT NULL'
             ]
         ];
     }
+
 }
