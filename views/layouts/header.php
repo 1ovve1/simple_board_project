@@ -24,7 +24,7 @@
                 </a>
                 <div class="dropdown">
                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?= auth()::user()['first_name'] . ' ' . auth()::user()['last_name'] ?>
+                        <?= auth()::user()['username'] ?>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li class="m-2 rounded-5 bg-light">

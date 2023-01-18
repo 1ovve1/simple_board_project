@@ -14,22 +14,6 @@ class SiteController extends AbstractController
         return self::render('index');
     }
 
-    function post()
-    {
-        try {
-            Auth::$instance->register(
-                'admin', 'admin',
-                'name', 'name',
-                88888888
-            );
-        } catch (\Throwable $e) {
-        }
-
-        $this->response->json([
-            'data' => Auth::$instance->user
-        ]);
-    }
-
     /**
      * @return string
      */

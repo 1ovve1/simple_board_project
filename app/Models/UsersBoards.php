@@ -3,9 +3,10 @@
 namespace Lowel\Workproject\App\Models;
 
 use QueryBox\Migration\MigrateAble;
+use QueryBox\Migration\MigrationParams;
 use QueryBox\QueryBuilder\QueryBuilder;
 
-class BoardsImages extends QueryBuilder implements MigrateAble
+class UsersBoards extends QueryBuilder implements MigrateAble
 {
     /**
      * @inheritDoc
@@ -14,12 +15,14 @@ class BoardsImages extends QueryBuilder implements MigrateAble
     {
         return [
             'fields' => [
+                'id_user' => 'BIGINT UNSIGNED NOT NULL',
                 'id_board' => 'BIGINT UNSIGNED NOT NULL',
-                'src' => 'VARCHAR(255)',
             ],
             'foreign' => [
+                'id_user' => [Users::class, 'id'],
                 'id_board' => [Boards::class, 'id'],
             ]
+
         ];
     }
 
