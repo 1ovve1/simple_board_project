@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 
+use Lowel\Workproject\App\Services\Auth;
 use Pecee\SimpleRouter\SimpleRouter as Router;
 use Pecee\Http\Url;
 use Pecee\Http\Response;
@@ -112,4 +113,21 @@ function get_config(string $name): array
     }
 
     return (include $path);
+}
+
+/**
+ * Return auth service
+ * @return Auth|null
+ */
+function auth(): Auth|null
+{
+    return Auth::$instance;
+}
+
+/**
+ * @return bool
+ */
+function is_auth(): bool
+{
+    return Auth::$instance !== null && Auth::$instance->user !== null;
 }

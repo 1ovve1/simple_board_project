@@ -16,11 +16,11 @@ class Users extends QueryBuilder implements MigrateAble
         return [
             'fields' => [
                 'id' => 'BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-                'email' => 'VARCHAR(255) NOT NULL',
+                'username' => 'VARCHAR(255) NOT NULL UNIQUE',
                 'first_name' => 'VARCHAR(255) NOT NULL',
                 'last_name' => 'VARCHAR(255) NOT NULL',
                 'phone' => 'INT UNSIGNED',
-                'password' => 'VARCHAR(255) NOT NULL',
+                'password_hash' => 'VARCHAR(255) NOT NULL',
             ]
         ];
     }

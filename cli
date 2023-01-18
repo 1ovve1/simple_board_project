@@ -6,6 +6,15 @@ define('CLI_MOD', true);
 require_once 'bootstrap.php';
 
 switch ($argv[1]) {
-    case 'migrate':
-        \Lowel\Workproject\DB\Migrations\UserMigrations::migrateFromConfig();
+    case 'db':
+        switch($argv[2]) {
+            case 'migrate':
+                \Lowel\Workproject\DB\Migrations\UserMigrations::migrateFromConfig();
+                break;
+            case 'reset':
+                \Lowel\Workproject\DB\Migrations\UserMigrations::dropTablesFromConfig();
+                break;
+        }
+        break;
+
 }

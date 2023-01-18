@@ -31,7 +31,7 @@ class UserMigrations
      */
     static function dropTablesFromConfig(): void
     {
-        $classList = $_SERVER['config']('migration');
+        $classList = get_config('migrations');
         $migrateTool = MetaTable::createImmutable(DBFacade::getImmutableDBConnection());
 
         $migrateTool->doDeleteTableFromMigrateAble($classList);
