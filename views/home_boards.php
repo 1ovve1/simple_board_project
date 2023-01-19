@@ -10,6 +10,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
+            <th>Изображение</th>
             <th>Заголовок</th>
             <th>Адрес</th>
             <th>Цена</th>
@@ -19,6 +20,9 @@
         <tbody>
         <?php foreach($boards as $board): ?>
         <tr>
+            <td class="w-25">
+                <img class="img-fluid" src="<?= assets($board['src']) ?>" alt="image not found">
+            </td>
             <td>
                 <?= $board['title'] ?>
             </td>

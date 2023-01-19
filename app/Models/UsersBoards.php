@@ -15,6 +15,7 @@ class UsersBoards extends QueryBuilder implements MigrateAble
     {
         return [
             'fields' => [
+                'id' => 'BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
                 'id_user' => 'BIGINT UNSIGNED NOT NULL',
                 'id_board' => 'BIGINT UNSIGNED NOT NULL',
             ],

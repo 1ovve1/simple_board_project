@@ -3,6 +3,7 @@
 namespace Lowel\Workproject\App\Controllers;
 
 use Lowel\Workproject\App\Exceptions\ValidationException;
+use Lowel\Workproject\App\Repositories\PublicBoardsRepository;
 use Lowel\Workproject\App\Repositories\UserBoardsRepository;
 use Lowel\Workproject\App\Validators\BoardValidator;
 use Lowel\Workproject\App\Validators\IValidator;
@@ -10,12 +11,15 @@ use Lowel\Workproject\App\Validators\IValidator;
 class BoardsController extends AbstractController
 {
     private IValidator $validator;
-    private UserBoardsRepository $boardsRepository;
+    private UserBoardsRepository $userBoardsRepository;
+    private PublicBoardsRepository $publicBoardsRepository;
+
 
     public function __construct()
     {
         $this->validator = new BoardValidator();
-        $this->boardsRepository = new UserBoardsRepository();
+        $this->userBoardsRepository = new UserBoardsRepository();
+        $this->publicBoardsRepository = new PublicBoardsRepository();
 
         parent::__construct();
     }
@@ -27,18 +31,26 @@ class BoardsController extends AbstractController
     {
         $user_id = auth()::user()['id'];
 
-        $boards = $this->boardsRepository->index($user_id);
+        $boards = $this->userBoardsRepository->index($user_id);
 
         return self::render('home_boards', ['boards' => $boards]);
     }
 
     /**
      * @param $id
-     * @return void
+     * @return string
      */
-    public function show($id)
+    public function show($id): string
     {
-        // TODO: Implement show() method.
+        if (is_auth()) {
+            $id_user = auth()::user()['id'];
+
+            $board = $this->userBoardsRepository->show($id_user, (int)$id);
+        } else {
+            $board = $this->publicBoardsRepository->show((int)$id);
+        }
+
+        return self::render('board_detail', compact('board'));
     }
 
     /**
@@ -61,7 +73,7 @@ class BoardsController extends AbstractController
 
             extract($args);
 
-            $this->boardsRepository->create($id_user, $title, $address, $content, (int)($price * 1000), $publish);
+            $this->userBoardsRepository->create($id_user, $title, $address, $content, (int)($price * 1000), $publish, $img);
         } catch (ValidationException $e) {
             redirect(route(
                 'boards.create',
@@ -83,7 +95,7 @@ class BoardsController extends AbstractController
         $old = input('old', null);
 
         if (!isset($old)) {
-            $board = $this->boardsRepository->show($id_user, (int)$id);
+            $board = $this->userBoardsRepository->show($id_user, (int)$id);
         }
 
         return self::render('board_update', ['old' => $old ?? null, 'board' => $board ?? null, 'validation_error' => input('validation_error', null)]);
@@ -102,7 +114,7 @@ class BoardsController extends AbstractController
 
             extract($args);
 
-            $this->boardsRepository->update($id_user, (int)$id, $title, $address, $content, (int)($price * 1000), $publish);
+            $this->userBoardsRepository->update($id_user, (int)$id, $title, $address, $content, (int)($price * 1000), $publish, $img);
         } catch (ValidationException $e) {
             redirect(route(
                 'boards.edit',
@@ -122,7 +134,7 @@ class BoardsController extends AbstractController
     {
         $id_user = auth()::user()['id'];
 
-        $this->boardsRepository->destroy($id_user, (int)$id);
+        $this->userBoardsRepository->destroy($id_user, (int)$id);
 
         redirect(route('home'));
     }

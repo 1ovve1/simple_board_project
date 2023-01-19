@@ -43,7 +43,8 @@ class UserBoardsRepository
     {
         $query_result = UsersBoards::select([
             'bbs' => ['id', 'title', 'address', 'content', 'price', 'publish'],
-            'img' => ['src']
+            'img' => ['src'],
+            'users' => ['first_name', 'last_name', 'phone']
         ], ['bbs_map' => UsersBoards::table()]
         )->innerJoin(
             ['bbs' => Boards::table()], ['bbs' => 'id', 'bbs_map' => 'id_board']
@@ -149,6 +150,10 @@ class UserBoardsRepository
         UsersBoards::delete()
             ->where('id_user', $id_user)
             ->andWhere('id_board', $id_board)
+            ->save();
+
+        BoardsImages::delete()
+            ->where('id_board', $id_board)
             ->save();
 
         Boards::delete()

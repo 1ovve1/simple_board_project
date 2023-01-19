@@ -9,9 +9,9 @@ class UserRegistrationValidator implements IValidator
     function validate($args = []): array
     {
         $username = input('username') ?? throw new ValidationException('username', 'Логин не должен быть пустым');
-        $first_name = input('first_name') ?? throw new ValidationException('first_name', 'Логин не должен быть пустым');
-        $last_name = input('last_name') ?? throw new ValidationException('last_name', 'Логин не должен быть пустым');
-        $phone = input('phone') ?? throw new ValidationException('phone', 'Логин не должен быть пустым');
+        $first_name = input('first_name') ?? throw new ValidationException('first_name', 'Имя не найдено!');
+        $last_name = input('last_name') ?? throw new ValidationException('last_name', 'Фамилия не найдена!');
+        $phone = input('phone') ?? throw new ValidationException('phone', 'Телефон не найден!');
         $password = input('password');
         $password_confirm = input('password_confirm');
 
@@ -36,5 +36,7 @@ class UserRegistrationValidator implements IValidator
         if (!preg_match('/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', $phone)) {
             throw new ValidationException('phone', 'Неверный формат телефона! (поддерживаются ТОЛЬКО номера РФ)');
         }
+
+        return compact('username', 'first_name', 'last_name', 'phone', 'password', 'password_confirm');
     }
 }

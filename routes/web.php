@@ -32,4 +32,6 @@ Router::group([
             Router::post('/delete/{id}', [BoardsController::class, 'destroy'], ['as' => 'boards.delete']);
         });
     });
+
+    Router::get('/board/{id}', [BoardsController::class, 'show'], ['as' => 'boards.detail']);
 });

@@ -14,6 +14,8 @@ switch ($argv[1]) {
             case 'reset':
                 \Lowel\Workproject\DB\Migrations\UserMigrations::dropTablesFromConfig();
                 break;
+            case 'seed':
+                \Lowel\Workproject\DB\Seed\Seeder::run();
         }
         break;
 

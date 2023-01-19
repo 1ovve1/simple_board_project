@@ -90,13 +90,12 @@ class Auth
      * @param string $last_name
      * @param string $phone
      * @param string $password
-     * @param string $password_confirm
      * @return void
-     * @throws UserAlreadyExistsException|ValidationException
+     * @throws UserAlreadyExistsException
      */
     function register(string $username, string $first_name,
                       string $last_name, string $phone,
-                      string $password, string $password_confirm): void
+                      string $password): void
     {
         if (UsersRepository::isUserExists($username)) {
             throw new UserAlreadyExistsException($username);

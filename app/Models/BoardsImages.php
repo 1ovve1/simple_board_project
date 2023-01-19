@@ -14,6 +14,7 @@ class BoardsImages extends QueryBuilder implements MigrateAble
     {
         return [
             'fields' => [
+                'id' => 'BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
                 'id_board' => 'BIGINT UNSIGNED NOT NULL',
                 'src' => 'VARCHAR(255)',
             ],

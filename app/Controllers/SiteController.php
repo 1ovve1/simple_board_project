@@ -5,6 +5,8 @@ namespace Lowel\Workproject\App\Controllers;
 use Lowel\Workproject\App\Exceptions\IncorrectAuthDataException;
 use Lowel\Workproject\App\Exceptions\UserAlreadyExistsException;
 use Lowel\Workproject\App\Exceptions\ValidationException;
+use Lowel\Workproject\App\Repositories\PublicBoardsRepository;
+use Lowel\Workproject\App\Repositories\UserBoardsRepository;
 use Lowel\Workproject\App\Services\Auth;
 use Lowel\Workproject\App\Validators\IValidator;
 use Lowel\Workproject\App\Validators\UserRegistrationValidator;
@@ -12,17 +14,23 @@ use Lowel\Workproject\App\Validators\UserRegistrationValidator;
 class SiteController extends AbstractController
 {
     private IValidator $validator;
+    private PublicBoardsRepository $publicBoardsRepository;
 
     public function __construct()
     {
         $this->validator = new UserRegistrationValidator();
+        $this->publicBoardsRepository = new PublicBoardsRepository();
         parent::__construct();
     }
 
-
+    /**
+     * @return string
+     */
     function index(): string
     {
-        return self::render('index');
+        $boards = $this->publicBoardsRepository->getBoards();
+
+        return self::render('index', compact('boards'));
     }
 
     /**
@@ -79,7 +87,7 @@ class SiteController extends AbstractController
 
             extract($args);
 
-            Auth::$instance->register($username, $first_name, $last_name, $phone, $password, $password_confirm);
+            Auth::$instance->register($username, $first_name, $last_name, $phone, $password);
         } catch (UserAlreadyExistsException $e) {
             redirect(route(
                 'register_form',

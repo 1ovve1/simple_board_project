@@ -109,7 +109,7 @@ function redirect(string $url, ?int $code = null): void
  */
 function csrf(): string
 {
-    return sprintf('<input type="hidden" name="csrf_token" value="%s">', csrf_token());
+    return sprintf('<input type="hidden" id="csrf_token" name="csrf_token" value="%s">', csrf_token());
 }
 
 /**

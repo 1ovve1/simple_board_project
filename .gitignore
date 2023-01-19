@@ -3,7 +3,8 @@
 /vendor
 /laradock
 /.phpunit.cache
-/logs/*
 /node_modules
+/logs/*
+/public/assets/uploads/*
 composer.lock
 
