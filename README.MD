@@ -36,6 +36,10 @@ return [
 ./cli db seed
 ```
 
+Тестовый аккаунт: 
+- логин: admin
+- пароль: secret11
+
 ## Изображения
 - Главная страница:
 ![index.png](docs%2Fimg%2Findex.png)
