@@ -5,6 +5,3 @@
 /.phpunit.cache
 /node_modules
 /logs/*
-/public/assets/uploads/*
-composer.lock
-
