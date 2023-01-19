@@ -10,7 +10,7 @@
         </thead>
         <tbody>
         <tr>
-            <th>Заголовое</th>
+            <th>Заголовок</th>
             <td>
                 <?= $board['title'] ?>
             </td>
