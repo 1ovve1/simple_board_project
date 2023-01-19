@@ -19,8 +19,8 @@ class UserAlreadyExistsException extends Exception
         parent::__construct();
     }
 
-    function getWrongUsername(): string
+    function getErrors(): array
     {
-        return $this->username;
+        return ['username' => "Пользователь под ником '$this->username' уже существует!"];
     }
 }

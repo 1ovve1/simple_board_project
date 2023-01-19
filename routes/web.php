@@ -29,7 +29,7 @@ Router::group([
             Router::get('/edit/{id}', [BoardsController::class, 'edit'], ['as' => 'boards.edit']);
             Router::post('/update/{id}', [BoardsController::class, 'update'], ['as' => 'boards.update']);
 
-            Router::post('/delete/{id}', [BoardsController::class, 'delete'], ['as' => 'boards.delete']);
+            Router::post('/delete/{id}', [BoardsController::class, 'destroy'], ['as' => 'boards.delete']);
         });
     });
 });

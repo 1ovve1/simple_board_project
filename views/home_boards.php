@@ -26,7 +26,7 @@
                 <?= $board['address'] ?>
             </td>
             <td>
-                <?= $board['price'] / 1000 . '.' . $boards['price'] % 1000 ?>
+                <?= $board['price'] / 1000 ?>
             </td>
             <td>
                 <?= ($board['publish'] ?? false) ? '<p class="text-bg-success">Активно</p>': '<p class="text-bg-danger">Закрыто</p>'?>
@@ -36,14 +36,33 @@
                     Изменить
                 </a>
                 <hr>
-                <a href="<?= route('boards.delete', ['id' => $board['id']]) ?>" class="text-danger">
+                <a class="popup-open text-danger" href="#">
                     Удалить
                 </a>
+
+                <div class="popup-fade">
+                    <form class="popup form" action="<?= route('boards.delete', ['id' => $board['id']]) ?>" method="post">
+                        <?= csrf() ?>
+
+                        <p class="text-center">Вы уверены, что хотите удалить запись?</p>
+
+                        <div class="container text-center">
+                            <button type="submit" class="btn btn-danger mx-4">
+                                Да
+                            </button>
+                            <button class="btn btn-primary mx-4 popup-close">
+                                Нет
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </td>
         </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
+
+<script src="<?= assets('js/modal_window.js') ?>"></script>
 
 <?php require_once 'layouts/footer.php' ?>

@@ -6,9 +6,20 @@ use Lowel\Workproject\App\Exceptions\IncorrectAuthDataException;
 use Lowel\Workproject\App\Exceptions\UserAlreadyExistsException;
 use Lowel\Workproject\App\Exceptions\ValidationException;
 use Lowel\Workproject\App\Services\Auth;
+use Lowel\Workproject\App\Validators\IValidator;
+use Lowel\Workproject\App\Validators\UserRegistrationValidator;
 
 class SiteController extends AbstractController
 {
+    private IValidator $validator;
+
+    public function __construct()
+    {
+        $this->validator = new UserRegistrationValidator();
+        parent::__construct();
+    }
+
+
     function index(): string
     {
         return self::render('index');
@@ -62,27 +73,25 @@ class SiteController extends AbstractController
      */
     function register(): void
     {
-        $username = input('username');
-        $first_name = input('first_name');
-        $last_name = input('last_name');
-        $phone = input('phone');
-        $password = input('password');
-        $password_confirm = input('password_confirm');
 
         try {
+            $args = $this->validator->validate();
+
+            extract($args);
+
             Auth::$instance->register($username, $first_name, $last_name, $phone, $password, $password_confirm);
         } catch (UserAlreadyExistsException $e) {
             redirect(route(
                 'register_form',
                 null,
-                ['old' => ['username' => $username, 'first_name' => $first_name, 'last_name' => $last_name, 'phone' => $phone], 'validation_error' => ['username' => "Пользователь под ником '$e->username' уже существует!"]]
+                ['old' => input()->all(['username', 'first_name', 'last_name', 'phone']), 'validation_error' => $e->getErrors()]
             ));
 
         } catch (ValidationException $e) {
             redirect(route(
                 'register_form',
                 null,
-                ['old' => ['username' => $username, 'first_name' => $first_name, 'last_name' => $last_name, 'phone' => $phone], 'validation_error' => $e->getErrors()]
+                ['old' => input()->all(['username', 'first_name', 'last_name', 'phone']), 'validation_error' => $e->getErrors()]
             ));
 
         }
